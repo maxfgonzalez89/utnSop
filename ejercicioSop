@@ -1,0 +1,48 @@
+#!/bin/bash
+clear
+
+echo "MENU"
+echo "A - Muestra la cantidad de archivos que contiene cada subdirectorio de un directorio ingresado."
+echo "B - Darle permiso de ejecucion a un archivo determinado."
+echo "S - Salir o Finalizar."
+echo "ELIJA UNA OPCION"
+read option
+
+case $option in
+	A)
+	echo "Ingrese el directorio"
+	read dirEx
+	ls -R $dirEx
+	echo;;
+
+	B)
+	totalFind=2
+	while [ $totalFind != 1 ]
+		do
+		echo "Ingrese el nombre del archivo"
+		read findFile
+		totalFind=$( find $findFile | wc -l )
+		if test $totalFind -gt 1
+		then
+		echo "su busqueda arrojo mas de un resultado"
+		elif test $totalFind -lt 1
+		then
+		echo "su busqueda no arrojo resultados"
+		else
+		echo "archivo encontrado"
+		chmod +x $findFile
+		echo "Se otorgo permiso de ejecucion al archivo solicitado. "
+
+		fi
+	done
+	echo;;
+
+	S)
+	exit;;
+
+	*)
+	echo "la opcion ingresada no es valida"
+	sleep 2
+	./ejercicioSop
+	echo;;
+esac
